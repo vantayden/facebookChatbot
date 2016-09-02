@@ -5,23 +5,27 @@ class Core{
 	const FB_APP_TOKEN = '';
 	const VERIFY_TOKEN = '';
 
-	function process($command){
+	function process($command, $sender){
 		$modules = self::listModules();
 		$messages = array();
 
 		foreach($modules as $moduleName){
 			include(self::MODULES_DIR.'/'.$moduleName.'.php');
-			$module = new $moduleName();
-			$messages[] = $module->process($command);
+			$module = new $moduleName($sender);
+            $response = $module->process($command);
+            if($response != null)
+                $messages[] = $response ;
 		}
 
-		if(count($messages) > 1){
+        $totalMessage = sizeof($messages);
+
+		if($totalMessage > 1){
 			$index = 0;
-			for($i=1; $i<count($messages); $i++){
+			for($i = 1; $i < $totalMessage; $i++){
 				if($messages[$i]['priority'] >= $messages[$index]['priority'])
 					$index = $i;
 			}
-			return $message[$i];
+			return $messages[$index];
 		} else
 			return $messages[0];
 	}

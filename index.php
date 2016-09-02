@@ -1,7 +1,6 @@
 <?php
 	//Model File
 include('core.php');
-include('messageType.php');
 
 use Core as Model;
 
@@ -33,10 +32,9 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             } else if (!empty($message['postback'])) {
                 $command = $message['postback']['payload'];
             }
-
-            $responses = Model::process($command);
+            $responses = Model::process($command, $message['sender']['id']);
             foreach($responses['messages'] as $response){
-                $bot->send(new $response['type']($message['sender']['id'], $response['message']));
+                $bot->send($response);
             }
             
         }

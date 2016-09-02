@@ -14,7 +14,7 @@ List Modules thực thi trong dir 'modules', có thể sửa tên trong class Co
 + tên class trùng tên File.php</br>
 + set Priority để tăng mức độ ưu tiên nếu 1 message cho ra nhiều response</br>
 List message Type trong file messageType, tìm hiểu thêm tại https://developers.facebook.com/docs/messenger-platform/product-overview/conversation#send_messages</br>
-# Cấu hình
++## Cấu hình
 Tạo 1 page Facebook</br>
 Vào Facebook cho Developers, tạo 1 app. Add product Messenger, chọn page và lấy Page Access Token</br>
 Sửa file core.php với FB_APP_TOKEN = Page Access Token, VERIFY_TOKEN = string bất kỳ</br>
